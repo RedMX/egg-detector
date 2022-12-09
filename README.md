@@ -21,3 +21,4 @@ then in another terminal window
 
 python ./client.py
 
+client.py then asks for an image link and when given it passes it to the AI in egg_detector.py which saves the image to eggs.jpg and returns the highest score to the client
