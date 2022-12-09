@@ -6,6 +6,7 @@ Requirements:
 opencv-python,pyzmq,tensorflow(2.10.1),object_detection(0.1),protobuf(3.20.3)
 you can install everything except object_detection from pip you have to install object_detection from tensorflow's repo
 you can do it with these commands(tested on linux):
+
 git clone https://github.com/tensorflow/models
 
 cd ./models/research
