@@ -1,5 +1,5 @@
 # egg-detector
-a python AI that uses tensorflow's object detection API and zeroMQ for communication to detect eggs in images using a custom trained model
+a python AI that uses tensorflow's object detection API, zeroMQ for communication and Imgur for uploading images to detect eggs in images using a custom trained model
 
 Requirements:
 
