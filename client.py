@@ -4,9 +4,6 @@ context = zmq.Context()
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:5555")
 url=input("enter image url: ")
-x={
-"url": url
-}
-socket.send(str(json.dumps(x)).encode(encoding = 'UTF-8'))
+socket.send(str(url).encode(encoding = 'UTF-8'))
 message = socket.recv()
-print(message) # returns the highest percentage out of all detections or 0 if there is no detection above set threshold
+print(message) # returns json formatted message with the highest percentage out of all detections and imgur link or 0 if there is no detection above set threshold
