@@ -24,4 +24,4 @@ python ./client.py
 client.py then asks for an image link and when given it passes it to the AI in egg_detector.py which saves the image along with boxes marking where the eggs were detected to eggs.jpg and returns the highest score to the client
 # Accuracy
 
-Right now the model is not ver accurate but I'll probably train it more
+Right now the model is not very accurate but I'll probably train it more in the future
