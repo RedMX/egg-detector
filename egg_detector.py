@@ -30,11 +30,11 @@ def detect_fn(image):
 
 def img_chck(url):
 
-    score ='0'
-    imgurl ='0'
+    score = '0'
+    imgurl = '0'
     req = Request(
-        url=url,
-        headers={'User-Agent': 'Mozilla/5.0'}
+        url = url,
+        headers = {'User-Agent': 'Mozilla/5.0'}
     )
     webpage = urlopen(req).read()
     arr = np.asarray(bytearray(webpage), dtype=np.uint8)
@@ -55,7 +55,7 @@ def img_chck(url):
 
 
 
-    im_height,im_width,dim=img.shape
+    im_height,im_width,_ = img.shape
     for i in range(len(detections['detection_scores'])):
         if detections['detection_scores'][i]>float(os.environ['egg_ai_threshold']):
             img = cv2.rectangle(img,(int(detections['detection_boxes'][i][1]*im_width),int(detections['detection_boxes'][i][0]*im_height)) ,(int(detections['detection_boxes'][i][3]*im_width),int(detections['detection_boxes'][i][2]*im_height)), (0,0,255,255), 5)
@@ -63,10 +63,10 @@ def img_chck(url):
             #img = cv2.putText(img, category_index[detections['detection_classes'][i]+1]['name']+": "+str(np.around(detections['detection_scores'][i]*100,2))+"%",(int(detections['detection_boxes'][i][1]*im_width),int(detections['detection_boxes'][i][0]*im_height)-30),cv2.FONT_HERSHEY_SIMPLEX,3,(0,0,255),5,cv2.LINE_AA) uncomment for text(may not work well with lower resolution images)
     if np.max(detections['detection_scores']) > float(os.environ['egg_ai_threshold']):
         #cv2.imwrite('./eggs.png',img) #write image to file
-        retval, buffer = cv2.imencode('.png', img)
-        img_rsp = requests.request("POST", "https://api.imgur.com/3/image", headers={'Authorization': 'Client-ID '+imgclnt}, data={'image': base64.b64encode(buffer)}, files=[])
+        _, buffer = cv2.imencode('.png', img)
+        img_rsp = requests.request("POST", "https://api.imgur.com/3/image", headers = {'Authorization': 'Client-ID '+imgclnt}, data = {'image': base64.b64encode(buffer)}, files = [])
         img_rsp = json.loads(img_rsp.content.decode('UTF-8'))
-        if img_rsp['success']==True:
+        if img_rsp['success'] == True:
             imgurl = img_rsp['data']['link']
         score = str(np.around(np.max(detections['detection_scores'])*100,2))
     return {"score": score, "imgurl": imgurl}
@@ -78,6 +78,6 @@ while True:
  
     message = socket.recv()
     message = message.decode("utf-8")
-    socket.send(str(img_chck(message)).encode(encoding= 'UTF-8'))
+    socket.send(str(img_chck(message)).encode(encoding = 'UTF-8'))
 
    
